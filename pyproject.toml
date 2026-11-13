@@ -1,17 +1,52 @@
 [project]
-name = "sadasd"
+name = "market-dashboard"
 version = "0.1.0"
-description = "Add your description here"
+description = "Panel de precios en vivo (estilo TradingView) construido con Flask, arquitectura MVC y datos de Yahoo Finance"
 readme = "README.md"
-authors = [
-    { name = "Yeiner Restrepo", email = "yeiner14558@gmail.com" }
-]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "arch>=8.0.0",
+    "cloudinary>=1.46.2",
+    # MotherDuck solo acepta clientes DuckDB dentro de su ventana de compatibilidad
+    # (hoy 1.4.1 a 1.5.6). NO subir el tope sin verificar
+    # https://motherduck.com/docs/duckdb-versions.json
+    "duckdb>=1.5.6,<1.6",
+    "dukascopy-python>=4.0.1",
+    "flask>=3.1.3",
+    "gunicorn>=26.2.0",
+    "matplotlib>=3.11.2",
+    "mlflow>=3.17.2",
+    "numpy>=1.26",
+    "pandas>=3.0.5",
+    "prefect>=3.8.8",
+    "pyarrow>=17.0",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "pyportfolioopt>=1.6.0",
+    "python-dotenv>=1.2.3",
+    "pytz>=2024.1",
+    "quantstats>=0.0.81",
+    "requests>=2.34.2",
+    "resend>=2.47.0",
+    "scikit-learn>=1.5",
+    "scipy>=1.17.1",
+    "seaborn>=0.13.2",
+    "statsmodels>=0.15.0",
+    "ta-lib>=0.8.1",
+    "tenacity>=9.0",
+    "yfinance>=1.7.0",
+]
 
-[project.scripts]
-sadasd = "sadasd:main"
+[tool.uv]
+package = false
 
-[build-system]
-requires = ["uv_build>=0.12.5,<0.13.0"]
-build-backend = "uv_build"
+[tool.pytest.ini_options]
+pythonpath = ["."]
+# Cada app tiene su carpeta en tests/ (tests/<app>/test_routes.py, ...).
+addopts = "--import-mode=importlib"
+
+[dependency-groups]
+dev = [
+    "pytailwindcss>=0.3.1",
+    "pytest>=9.1.1",
+]
